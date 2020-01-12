@@ -40,14 +40,15 @@ int main()
 
     int numHeap = 0;
     int numRandSelection = 0;
-    Person resRandSelection = RandSelection(p,(sizeof(p)/ sizeof(Person)),6,numRandSelection);
-    Person res = selectHeap(p,(sizeof(p)/ sizeof(Person)),6,numHeap);
+    Person resRandSelection = RandSelection(p,(sizeof(p)/ sizeof(Person)),2,numRandSelection);  //Check for (1)
+    Person res = selectHeap(p,(sizeof(p)/ sizeof(Person)),2,numHeap);                           //Check for (2)
+
+    cout << "\n(RAND SELECTION) The person ID is: " << resRandSelection.ID() << endl;
+    cout << "(RAND SELECTION) Num of compares: " << numRandSelection << endl;
 
     cout << "(HEAP) The person ID is: " << res.ID() << endl;
     cout << "(HEAP) Num of compares: " << numHeap << endl;
 
-    cout << "\n(RAND SELECTION) The person ID is: " << resRandSelection.ID() << endl;
-    cout << "(RAND SELECTION) Num of compares: " << numRandSelection << endl;
 //	int numberOfPepoleToSort;
 //
 //	cout << "This is a program to demonstrate different solutions to the selection problem and their time complexity.";
