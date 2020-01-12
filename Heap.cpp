@@ -30,13 +30,6 @@ int Heap::Right(int node)
     return (2*node + 2);
 }
 
-void Heap::Swap(Person &a, Person &b)
-{
-    Person temp = a;
-    a = b;
-    b = temp;
-}
-
 void Heap::FixHeap(int node,int& NumComp)
 {
     int min;
@@ -53,7 +46,7 @@ void Heap::FixHeap(int node,int& NumComp)
 
     if(min!=node)
     {
-        Swap(data[node],data[min]);
+        Person::Swap(data[node],data[min]);
         FixHeap(min,NumComp);
     }
 }

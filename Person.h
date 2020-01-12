@@ -18,12 +18,15 @@ private:
 public:
 	Person(string i_ID, string i_FirstName, string i_LastName);
 	Person() = default;
+	Person(const Person& other);
+	Person(Person&& other);
 	long ID() { return m_ID; }
 	string FirstName() { return m_FirstName; }
 	string LastName() { return m_LastName; }
     bool operator<(const Person& other) const;
     bool operator>(const Person& other) const;
     const Person& operator=(const Person& other);
+    static void Swap(Person& a, Person& b);
 
 private:
 	bool isValidID(string i_ID);

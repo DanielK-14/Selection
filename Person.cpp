@@ -6,7 +6,17 @@ Person::Person(string i_ID, string i_FirstName, string i_LastName)
 	else m_ID = stoi(i_ID);
 	if (!isValidName(i_FirstName)) throw Bad_FirstName;
 	if (!isValidName(i_LastName)) throw Bad_LastName;
-} 
+}
+
+Person::Person(const Person& other)
+{
+    *this = other;
+}
+
+Person::Person(Person&& other)
+{
+    *this = other;
+}
 
 bool Person::isValidID(string i_ID) {
 
@@ -46,4 +56,11 @@ const Person& Person::operator=(const Person &other)
         m_LastName = other.m_LastName;
     }
     return *this;
+}
+
+void Person::Swap(Person &a, Person &b)
+{
+    Person temp = a;
+    a = b;
+    b = temp;
 }

@@ -23,6 +23,5 @@ public:
     Person Min(void);
     Person DeleteMin(int& NumComp);
     void Insert(Person item,int& NumComp);
-    void Swap(Person& a, Person& b);
 };
 #endif //SELECTION_HEAP_H
