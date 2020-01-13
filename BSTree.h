@@ -1,9 +1,10 @@
 #pragma once
 #include "BSTreeNode.h"
 #include <vector>
+#include "Person.h"
 
-typedef int KeyType;
-typedef int DataType;
+typedef long KeyType;
+typedef Person DataType;
 
 class  BSTree {
 
@@ -16,7 +17,7 @@ public:
 		if (m_Root != nullptr) delete m_Root;
 	}
 	BSTreeNode * Find(KeyType i_Key);
-	void Insert(KeyType i_Key, DataType i_Data);
+	void Insert(KeyType i_Key, DataType i_Data, int &NumComp);
 	void Delete(KeyType i_Key, DataType i_Data);
 	KeyType Min();
 	KeyType Max();

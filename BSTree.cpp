@@ -31,7 +31,7 @@ BSTreeNode * BSTree::Find(KeyType i_Key) {
 	return result;
 }
 
-void BSTree::Insert(KeyType i_Key, DataType i_Data) {
+void BSTree::Insert(KeyType i_Key, DataType i_Data, int &NumComp) {
 
 	BSTreeNode * temp = m_Root;
 	BSTreeNode * parent = nullptr;
@@ -40,7 +40,7 @@ void BSTree::Insert(KeyType i_Key, DataType i_Data) {
 	while (temp != nullptr) {
 		
 		parent = temp;
-
+		NumComp++;
 		if(i_Key < temp->Key()) temp = temp->GetLeft();
 		else if (i_Key > temp->Key()) temp = temp->GetRight();
 		else throw i_Key;

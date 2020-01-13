@@ -10,7 +10,9 @@ Person::Person(string i_ID, string i_FirstName, string i_LastName)
 
 Person::Person(const Person& other)
 {
-    *this = other;
+	m_ID = other.m_ID;
+	m_FirstName = other.m_FirstName;
+	m_LastName = other.m_LastName;
 }
 
 Person::Person(Person&& other)

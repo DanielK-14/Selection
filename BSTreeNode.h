@@ -1,10 +1,11 @@
 #pragma once
 #include <vector>
+#include "Person.h"
 
 using namespace std;
 
-typedef int KeyType;
-typedef int DataType;
+typedef long KeyType;
+typedef Person DataType;
 
 class BSTreeNode {
 
@@ -18,7 +19,7 @@ public:
 	BSTreeNode() {
 
 		m_Left = m_Right = nullptr;
-		m_Data = 0;
+		//m_Data = 0;
 	}
 	BSTreeNode(KeyType i_Key, DataType i_Data, BSTreeNode * i_Left, BSTreeNode * i_Right) 
 		: m_Key{ i_Key }, m_Data{ i_Data }, m_Left{ i_Left }, m_Right{ i_Right }{}

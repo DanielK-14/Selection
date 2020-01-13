@@ -1,13 +1,16 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
+#include "BSTree.h"
 #include "Person.h"
 #include "Heap.h"
+#include <time.h>
 
 using namespace std;
 
 const Person& RandSelection(Person A[],int size,int k,int& NumComp);    ///(1)
 const Person& selectHeap(Person arr[],int size,int k,int& NumComp);     ///(2)
+const Person BST(vector<Person> people, int k, int &NumComp);			///(3)
 
 const Person& Selection(Person A[],int left,int right,int i,int& NumComp);
 int Partition(Person A[], int left, int right,int& NumComp);
@@ -38,16 +41,24 @@ int main()
     p[8] = p4;
     p[9] = p5;
 
+	vector<Person> people(p, p + 10);
+
+
     int numHeap = 0;
     int numRandSelection = 0;
+	int numBST = 0;
     Person resRandSelection = RandSelection(p,(sizeof(p)/ sizeof(Person)),2,numRandSelection);  //Check for (1)
-    Person res = selectHeap(p,(sizeof(p)/ sizeof(Person)),2,numHeap);                           //Check for (2)
+	Person resBST = BST(people, 2, numBST);														//Check for (2)
+	//Person res = selectHeap(p,(sizeof(p)/ sizeof(Person)),2,numHeap);                         //Check for (3)
 
     cout << "\n(RAND SELECTION) The person ID is: " << resRandSelection.ID() << endl;
     cout << "(RAND SELECTION) Num of compares: " << numRandSelection << endl;
 
-    cout << "(HEAP) The person ID is: " << res.ID() << endl;
-    cout << "(HEAP) Num of compares: " << numHeap << endl;
+	cout << "\n(BST) The person ID is: " << resBST.ID() << endl;
+	cout << "(BST) Num of compares: " << numBST << endl;
+
+    //cout << "(HEAP) The person ID is: " << res.ID() << endl;
+    //cout << "(HEAP) Num of compares: " << numHeap << endl;
 
 //	int numberOfPepoleToSort;
 //
@@ -166,4 +177,18 @@ int Partition(Person A[], int left, int right,int& NumComp)
     }
     swap(A[i], A[right]);
     return (i);
+}
+
+const Person BST(vector<Person> people, int k, int &NumComp) {
+
+	BSTree * peopleBinarySearchTree = new BSTree();
+
+	for (Person person : people) {
+		peopleBinarySearchTree->Insert(person.ID(), person, NumComp);
+	}
+
+	vector<Person> PeopleInOrder;
+	peopleBinarySearchTree->Inorder(PeopleInOrder);
+
+	return	PeopleInOrder[k];
 }
