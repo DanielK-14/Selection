@@ -60,9 +60,9 @@ const Person& Person::operator=(const Person &other)
     return *this;
 }
 
-void Person::Swap(Person &a, Person &b)
+void Person::Swap(Person** a, Person** b)
 {
-    Person temp = a;
-    a = b;
-    b = temp;
+    Person* temp = *a;
+    *a = *b;
+    *b = temp;
 }

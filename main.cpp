@@ -1,19 +1,20 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
-#include "BSTree.h"
+//#include "BSTree.h"
 #include "Person.h"
-#include "Heap.h"
+//#include "Heap.h"
 #include <time.h>
+#include "Selection.h"
 
 using namespace std;
 
-const Person& RandSelection(Person A[],int size,int k,int& NumComp);    ///(1)
-const Person& selectHeap(Person arr[],int size,int k,int& NumComp);     ///(2)
-const Person BST(vector<Person> people, int k, int &NumComp);			///(3)
+//const Person& RandSelection(Person A[],int size,int k,int& NumComp);    ///(1)
+//const Person& selectHeap(Person arr[],int size,int k,int& NumComp);     ///(2)
+//const Person BST(vector<Person> people, int k, int &NumComp);			///(3)
 
-const Person& Selection(Person A[],int left,int right,int i,int& NumComp);
-int Partition(Person A[], int left, int right,int& NumComp);
+//const Person& Selection(Person A[],int left,int right,int i,int& NumComp);
+//int Partition(Person A[], int left, int right,int& NumComp);
 
 int main()
 {
@@ -43,19 +44,22 @@ int main()
 
 	vector<Person> people(p, p + 10);
 
+	Selection select(10,p,10);
+	select.RandSelection();
+	select.selectHeap();
 
-    int numHeap = 0;
-    int numRandSelection = 0;
-	int numBST = 0;
-    Person resRandSelection = RandSelection(p,(sizeof(p)/ sizeof(Person)),2,numRandSelection);  //Check for (1)
-	Person resBST = BST(people, 2, numBST);														//Check for (2)
+//    int numHeap = 0;
+//    int numRandSelection = 0;
+//	int numBST = 0;
+//    Person resRandSelection = RandSelection(p,(sizeof(p)/ sizeof(Person)),2,numRandSelection);  //Check for (1)
+//	Person resBST = BST(people, 2, numBST);														//Check for (2)
 	//Person res = selectHeap(p,(sizeof(p)/ sizeof(Person)),2,numHeap);                         //Check for (3)
 
-    cout << "\n(RAND SELECTION) The person ID is: " << resRandSelection.ID() << endl;
-    cout << "(RAND SELECTION) Num of compares: " << numRandSelection << endl;
-
-	cout << "\n(BST) The person ID is: " << resBST.ID() << endl;
-	cout << "(BST) Num of compares: " << numBST << endl;
+//    cout << "\n(RAND SELECTION) The person ID is: " << resRandSelection.ID() << endl;
+//    cout << "(RAND SELECTION) Num of compares: " << numRandSelection << endl;
+//
+//	cout << "\n(BST) The person ID is: " << resBST.ID() << endl;
+//	cout << "(BST) Num of compares: " << numBST << endl;
 
     //cout << "(HEAP) The person ID is: " << res.ID() << endl;
     //cout << "(HEAP) Num of compares: " << numHeap << endl;
@@ -110,85 +114,85 @@ int main()
 //			break;
 //		}
 //	} while (personlNumber <= numberOfPepoleToSort);
-
-	return 0;
+//
+//	return 0;
 }
 
-const Person& selectHeap(Person arr[],int size,int k,int& NumComp)
-{
-    Heap heap(arr,size,NumComp);
-    Person person;
+//const Person selectHeap(Person arr[],int size,int k,int& NumComp)
+//{
+//    Heap heap(arr,size,NumComp);
+//    Person person;
+//
+//    // Deletes all the k-1 minimum values
+//    for(int i = 0 ; i < k-1; i++)
+//        person = heap.DeleteMin(NumComp);
+//
+//    // Deletes from the heap the k value of its size and returns it.
+//    return heap.DeleteMin(NumComp);
+//}
 
-    // Deletes all the k-1 minimum values
-    for(int i = 0 ; i < k-1; i++)
-        person = heap.DeleteMin(NumComp);
+//const Person& RandSelection(Person A[],int size,int k,int& NumComp)
+//{
+//    return Selection(A,0,size-1,k,NumComp);
+//}
+//
+//const Person& Selection(Person A[],int left,int right,int i,int& NumComp)
+//{
+//    // In case the requested value was not found till the point we were left with 1 value for check after all
+//    // partitions made inan even size of A[].
+//    if(right == left)
+//        return A[right];
+//
+//    // Generate a random number in between left and right
+//    srand(time(nullptr));
+//    int pivot = left + rand() % (right - left);
+//
+//    // Swap A[pivot] with A[right]
+//    Person::Swap(A[pivot], A[right]);
+//
+//    // Gets pivot's correct location after partition.
+//    pivot = Partition(A, left, right,NumComp);
+//
+//    // Amount of values on the left side of the pivot and it self, in the bordered array we have sent.
+//    int leftPart = pivot-left+1;
+//
+//    if(i == leftPart)
+//        return A[pivot];
+//    if(i < leftPart)
+//        return Selection(A,left,pivot-1,i,NumComp);
+//    else
+//        return Selection(A,pivot+1,right,i-leftPart,NumComp);
+//}
+//
+//int Partition(Person A[], int left, int right,int& NumComp)
+//{
+//    Person pivot = A[right]; // pivot
+//    int i = left;
+//
+//    for (int j = left; j < right; j++)
+//    {
+//        // If current element is smaller than pivot
+//        if (A[j] < pivot)
+//        {
+//            swap(A[i], A[j]);
+//            i++; // increment index of next place for smaller values
+//        }
+//        NumComp++;
+//    }
+//    swap(A[i], A[right]);
+//    return (i);
+//}
 
-    // Deletes from the heap the k value of its size and returns it.
-    return heap.DeleteMin(NumComp);
-}
-
-const Person& RandSelection(Person A[],int size,int k,int& NumComp)
-{
-    return Selection(A,0,size-1,k,NumComp);
-}
-
-const Person& Selection(Person A[],int left,int right,int i,int& NumComp)
-{
-    // In case the requested value was not found till the point we were left with 1 value for check after all
-    // partitions made inan even size of A[].
-    if(right == left)
-        return A[right];
-
-    // Generate a random number in between left and right
-    srand(time(NULL));
-    int pivot = left + rand() % (right - left);
-
-    // Swap A[pivot] with A[right]
-    Person::Swap(A[pivot], A[right]);
-
-    // Gets pivot's correct location after partition.
-    pivot = Partition(A, left, right,NumComp);
-
-    // Amount of values on the left side of the pivot and it self, in the bordered array we have sent.
-    int leftPart = pivot-left+1;
-
-    if(i == leftPart)
-        return A[pivot];
-    if(i < leftPart)
-        return Selection(A,left,pivot-1,i,NumComp);
-    else
-        return Selection(A,pivot+1,right,i-leftPart,NumComp);
-}
-
-int Partition(Person A[], int left, int right,int& NumComp)
-{
-    Person pivot = A[right]; // pivot
-    int i = left;
-
-    for (int j = left; j < right; j++)
-    {
-        // If current element is smaller than pivot
-        if (A[j] < pivot)
-        {
-            swap(A[i], A[j]);
-            i++; // increment index of next place for smaller values
-        }
-        NumComp++;
-    }
-    swap(A[i], A[right]);
-    return (i);
-}
-
-const Person BST(vector<Person> people, int k, int &NumComp) {
-
-	BSTree * peopleBinarySearchTree = new BSTree();
-
-	for (Person person : people) {
-		peopleBinarySearchTree->Insert(person.ID(), person, NumComp);
-	}
-
-	vector<Person> PeopleInOrder;
-	peopleBinarySearchTree->Inorder(PeopleInOrder);
-
-	return	PeopleInOrder[k];
-}
+//const Person BST(vector<Person> people, int k, int &NumComp) {
+//
+//	BSTree * peopleBinarySearchTree = new BSTree();
+//
+//	for (Person person : people) {
+//		peopleBinarySearchTree->Insert(person.ID(), person, NumComp);
+//	}
+//
+//	vector<Person> PeopleInOrder;
+//	peopleBinarySearchTree->Inorder(PeopleInOrder);
+//
+//	return	PeopleInOrder[k];
+//}

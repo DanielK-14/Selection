@@ -1,8 +1,16 @@
 #include "Heap.h"
 
+Heap::Heap(Person** A, int n,int& NumComp)
+{
+    heapSize = maxSize = n;
+    data = A;
+    allocated = 0;
+    for (int i = (n/2-1); i >= 0 ; i--)
+        FixHeap(i,NumComp);
+}
 Heap::Heap(int max)
 {
-    data = new Person[max];
+    data = new Person*[max];
     maxSize = max;
     heapSize = 0;
     allocated = 1;
@@ -36,36 +44,36 @@ void Heap::FixHeap(int node,int& NumComp)
     int left = Left(node);
     int right = Right(node);
 
-    if((left < heapSize) && (data[left] < data[node]))
+    if((left < heapSize) && (*data[left] < *data[node]))
         min = left;
     else min = node;
-    if((right < heapSize) && (data[right] < data[min]))
+    if((right < heapSize) && (*data[right] < *data[min]))
         min = right;
 
     NumComp += 2;
 
     if(min!=node)
     {
-        Person::Swap(data[node],data[min]);
+        Person::Swap(&data[node],&data[min]);
         FixHeap(min,NumComp);
     }
 }
 
-Person Heap::DeleteMin(int& NumComp)
+Person* Heap::DeleteMin(int& NumComp)
 {
     if(heapSize < 1)
     {
         cout << "Error: EMPTY HEAP\n";
         exit(1);
     }
-    Person min = data[0];
+    Person* min = data[0];
     heapSize--;
     data[0] = data[heapSize];
     FixHeap(0,NumComp);
     return (min);
 }
 
-void Heap::Insert(Person item,int& NumComp)
+void Heap::Insert(Person* item,int& NumComp)
 {
     if(heapSize == maxSize)
     {
@@ -84,16 +92,8 @@ void Heap::Insert(Person item,int& NumComp)
     data[i] = item;
 }
 
-Heap::Heap(Person *A, int n,int& NumComp)
-{
-    heapSize = maxSize = n;
-    data = A;
-    allocated = 0;
-    for (int i = (n/2-1); i >= 0 ; i--)
-        FixHeap(i,NumComp);
-}
 
-Person Heap::Min()
+Person* Heap::Min()
 {
     return data[0];
 }

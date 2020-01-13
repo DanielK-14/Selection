@@ -7,7 +7,7 @@
 class Heap
 {
 private:
-    Person* data;
+    Person** data;
     int maxSize;
     int heapSize;
     int allocated;
@@ -18,10 +18,10 @@ private:
 
 public:
     Heap(int max);
-    Heap(Person A[],int n,int& NumComp);
+    Heap(Person** A,int n,int& NumComp);
     ~Heap();
-    Person Min(void);
-    Person DeleteMin(int& NumComp);
-    void Insert(Person item,int& NumComp);
+    Person* Min();
+    Person* DeleteMin(int& NumComp);
+    void Insert(Person* item,int& NumComp);
 };
 #endif //SELECTION_HEAP_H

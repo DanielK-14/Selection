@@ -26,7 +26,7 @@ public:
     bool operator<(const Person& other) const;
     bool operator>(const Person& other) const;
     const Person& operator=(const Person& other);
-    static void Swap(Person& a, Person& b);
+    static void Swap(Person** a, Person** b);
 
 private:
 	bool isValidID(string i_ID);
