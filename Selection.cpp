@@ -1,6 +1,6 @@
 #include "Selection.h"
 
-Selection::Selection(int _size,Person* array, int value)
+Selection::Selection(int _size,Person** array, int value)
     :size(_size),valueNumber(value),numOfCompares(0),Arr(array){}
 
 void Selection::RandSelection()
@@ -59,7 +59,6 @@ Person* Selection::SelectionFunc(Person** arr,int left,int right,int k)
         return arr[right];
 
     // Generate a random number in between left and right
-    srand(time(nullptr));
     int pivot = left + rand() % (right - left);
 
     // Swap A[pivot] with A[right]
@@ -83,7 +82,7 @@ Person** Selection::MakeCopy()
 {
     Person** temp = new Person*[size];
     for (int i = 0; i < size; i++)
-        temp[i] = &Arr[i];
+        temp[i] = Arr[i];
     return temp;
 }
 
@@ -104,7 +103,7 @@ bool Selection::SetNewValue(int value)
 
 void Selection::Print(int type,Person* person)
 {
-    cout<<"\nSelected person name is: "<<person->FirstName() << " " << person->LastName() << " with id: " << person->ID()<< endl;
+    cout<<"\nSelected person name is: "<<person->Name() << " with id: " << person->ID()<< endl;
     switch(type)
     {
         case 1:

@@ -3,11 +3,12 @@
 #include <vector>
 //#include "BSTree.h"
 #include "Person.h"
-//#include "Heap.h"
-#include <time.h>
 #include "Selection.h"
 
 using namespace std;
+
+void FreeArray(Person** arr,int size);
+Person** getDataFromFile(string fname,int& size, int& val);
 
 //const Person& RandSelection(Person A[],int size,int k,int& NumComp);    ///(1)
 //const Person& selectHeap(Person arr[],int size,int k,int& NumComp);     ///(2)
@@ -18,35 +19,54 @@ using namespace std;
 
 int main()
 {
-    Person p[10];
+    for (int i = 1; i <= 10; i++)
+    {
+        srand(time(nullptr));
+        string fname;
+        cin >> fname;
+        int size,val;
+        Person** arr = getDataFromFile(fname,size, val);
+        Selection selection(size,arr,val);
+        cout << "\n(" << i << ")";
+        selection.selectHeap();     //selectHeap
+                                    //BST
+        selection.RandSelection();  //RandSelection1
+        selection.RandSelection();  //RandSelection2
+        selection.RandSelection();  //RandSelection3
+        selection.RandSelection();  //RandSelection4
+        FreeArray(arr,size);
+        cout << "- - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
+    }
 
-    Person p1("100000000","Dan","Kalmykov");
-    Person p2("200000000","a","b");
-    Person p3("300000000","a","b");
-    Person p4("400000000","a","b");
-    Person p5("500000000","a","b");
-    Person p6("600000000","a","b");
-    Person p7("700000000","a","b");
-    Person p8("800000000","a","b");
-    Person p9("900000000","a","b");
-    Person p10("910000000","a","b");
-
-    p[0] = p9;
-    p[1] = p8;
-    p[2] = p10;
-    p[3] = p7;
-    p[4] = p6;
-    p[5] = p2;
-    p[6] = p1;
-    p[7] = p3;
-    p[8] = p4;
-    p[9] = p5;
-
-	vector<Person> people(p, p + 10);
-
-	Selection select(10,p,10);
-	select.RandSelection();
-	select.selectHeap();
+//    Person p[10];
+//
+//    Person p1("100000000","Dan","Kalmykov");
+//    Person p2("200000000","a","b");
+//    Person p3("300000000","a","b");
+//    Person p4("400000000","a","b");
+//    Person p5("500000000","a","b");
+//    Person p6("600000000","a","b");
+//    Person p7("700000000","a","b");
+//    Person p8("800000000","a","b");
+//    Person p9("900000000","a","b");
+//    Person p10("910000000","a","b");
+//
+//    p[0] = p9;
+//    p[1] = p8;
+//    p[2] = p10;
+//    p[3] = p7;
+//    p[4] = p6;
+//    p[5] = p2;
+//    p[6] = p1;
+//    p[7] = p3;
+//    p[8] = p4;
+//    p[9] = p5;
+//
+//	vector<Person> people(p, p + 10);
+//
+//	Selection select(10,p,10);
+//	select.RandSelection();
+//	select.selectHeap();
 
 //    int numHeap = 0;
 //    int numRandSelection = 0;
@@ -116,6 +136,7 @@ int main()
 //	} while (personlNumber <= numberOfPepoleToSort);
 //
 //	return 0;
+
 }
 
 //const Person selectHeap(Person arr[],int size,int k,int& NumComp)
@@ -196,3 +217,24 @@ int main()
 //
 //	return	PeopleInOrder[k];
 //}
+
+Person** getDataFromFile(string fname,int& size,int& val)
+{
+    ifstream inFile(fname);
+    inFile >> size;
+    Person** PArray = new Person*[size];
+    for (int i = 0; i < size; i++)
+    {
+        PArray[i] = new Person(inFile);
+    }
+    inFile >> val;
+    inFile.close();
+    return PArray;
+}
+
+void FreeArray(Person** arr,int size)
+{
+    for (int i = 0; i < size; i++)
+        delete arr[i];
+    delete[] arr;
+}
