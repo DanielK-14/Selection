@@ -1,7 +1,6 @@
 #ifndef SELECTION_SELECTION_H
 #define SELECTION_SELECTION_H
 
-#include "Person.h"
 #include "Heap.h"
 #include "BSTree.h"
 #include <time.h>

@@ -5,6 +5,8 @@ Selection::Selection(int _size,Person** array, int value)
 
 void Selection::RandSelection()
 {
+    ///Wrost case: θ(n^2)
+    ///Average case: θ(n)
     Reset();
     Person** arr = MakeCopy();
     Person* person;
@@ -15,6 +17,8 @@ void Selection::RandSelection()
 
 void Selection::selectHeap()
 {
+    ///Wrost case: θ(nlogn)
+    ///Average case: θ(nlogn)
     Reset();
     Person** array = MakeCopy();
     Heap heap(array,size,numOfCompares);
@@ -23,13 +27,34 @@ void Selection::selectHeap()
     // Deletes all the k-1 minimum values
     for(int i = 0 ; i < valueNumber-1; i++)
     {
-        person = heap.Min();
         person = heap.DeleteMin(numOfCompares);
     }
 
     // Deletes from the heap the k value of its size and returns it.
     person = heap.DeleteMin(numOfCompares);
+
+    cout<< person->ID() << " " << person->Name() << endl;
     Print(2,person);
+    delete[] array;
+}
+
+void Selection::BST()
+{
+    ///Wrost case: θ(n^2)
+    ///Average case: θ(nlogn)
+	Reset();
+	Person** array = MakeCopy();
+	BSTree * peopleBinarySearchTree = new BSTree();
+
+	for (int i = 0; i < size; i++) {
+		peopleBinarySearchTree->Insert(array[i]->ID(), *array[i], numOfCompares);
+	}
+
+	vector<Person> PeopleInOrder;
+	peopleBinarySearchTree->Inorder(PeopleInOrder);
+
+	Print(3, &PeopleInOrder[valueNumber  - 1]);
+	delete[] array;
 }
 
 int Selection::Partition(Person** arr,int left, int right)
@@ -78,21 +103,6 @@ Person* Selection::SelectionFunc(Person** arr,int left,int right,int k)
         return SelectionFunc(arr,pivot+1,right,k-leftPart);
 }
 
-void Selection::BST() {
-
-	Reset();
-	Person** array = MakeCopy();
-	BSTree * peopleBinarySearchTree = new BSTree();
-
-	for (int i = 0; i < size; i++) {
-		peopleBinarySearchTree->Insert(array[i]->ID(), *array[i], numOfCompares);
-	}
-
-	vector<Person> PeopleInOrder;
-	peopleBinarySearchTree->Inorder(PeopleInOrder);
-
-	Print(3, &PeopleInOrder[valueNumber  - 1]);
-}
 
 Person** Selection::MakeCopy()
 {
@@ -119,22 +129,22 @@ bool Selection::SetNewValue(int value)
 
 void Selection::Print(int type,Person* person)
 {
-    cout<<"\nSelected person name is: "<<person->Name() << " with id: " << person->ID()<< endl;
     switch(type)
     {
         case 1:
-            cout<< "(RandSelection) ";
+            cout<< "RandSelection: ";
             break;
 
         case 2:
-            cout<<"(selectHeap) ";
+            cout<<"selectHeap: ";
             break;
         case 3:
-            cout<<"(BST) ";
+            cout<<"BST: ";
             break;
         default:
             cout<<"ERROR!";
             exit(1);
     }
-    cout<< "Number of compares made: " << numOfCompares << endl;
+    cout<< numOfCompares << " comparisons    " << person->ID() << endl;
+
 }

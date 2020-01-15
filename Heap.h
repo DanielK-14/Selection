@@ -18,10 +18,12 @@ private:
 
 public:
     Heap(int max);
-    Heap(Person** A,int n,int& NumComp);
+    Heap(Person** A,int n,int& NumComp);    //BuildHeap
     ~Heap();
     Person* Min();
     Person* DeleteMin(int& NumComp);
     void Insert(Person* item,int& NumComp);
+    void MakeEmpty();
+    bool IsEmpty();
 };
 #endif //SELECTION_HEAP_H

@@ -92,8 +92,17 @@ void Heap::Insert(Person* item,int& NumComp)
     data[i] = item;
 }
 
-
 Person* Heap::Min()
 {
     return data[0];
+}
+
+void Heap::MakeEmpty()
+{
+    heapSize = 0;
+}
+
+bool Heap::IsEmpty()
+{
+    return (heapSize==0);
 }
