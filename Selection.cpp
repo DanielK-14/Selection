@@ -78,6 +78,22 @@ Person* Selection::SelectionFunc(Person** arr,int left,int right,int k)
         return SelectionFunc(arr,pivot+1,right,k-leftPart);
 }
 
+void Selection::BST() {
+
+	Reset();
+	Person** array = MakeCopy();
+	BSTree * peopleBinarySearchTree = new BSTree();
+
+	for (int i = 0; i < size; i++) {
+		peopleBinarySearchTree->Insert(array[i]->ID(), *array[i], numOfCompares);
+	}
+
+	vector<Person> PeopleInOrder;
+	peopleBinarySearchTree->Inorder(PeopleInOrder);
+
+	Print(3, &PeopleInOrder[valueNumber  - 1]);
+}
+
 Person** Selection::MakeCopy()
 {
     Person** temp = new Person*[size];

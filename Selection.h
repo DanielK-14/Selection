@@ -20,6 +20,8 @@ public:
 
     void RandSelection();
     void selectHeap();
+	void BST();
+
 
     Person* SelectionFunc(Person** arr,int left,int right,int k) ;
     int Partition(Person** arr,int left, int right);

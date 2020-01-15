@@ -4,6 +4,7 @@
 //#include "BSTree.h"
 #include "Person.h"
 #include "Selection.h"
+#include <time.h>
 
 using namespace std;
 
@@ -29,7 +30,8 @@ int main()
         Selection selection(size,arr,val);
         cout << "\n(" << i << ")";
         selection.selectHeap();     //selectHeap
-                                    //BST
+		selection.BST();            //BST
+		selection.BST();			//BST
         selection.RandSelection();  //RandSelection1
         selection.RandSelection();  //RandSelection2
         selection.RandSelection();  //RandSelection3
