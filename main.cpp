@@ -7,41 +7,56 @@
 using namespace std;
 
 void FreeArray(Person** arr,int size);
-Person** getDataFromFile(string fname,int& size, int& val);
+Person** getData(int& size, int& val);
 
 int main()
 {
-    for (int i = 1; i <= 10; i++)
-    {
-        srand(time(nullptr));
-        string fname;
-        cin >> fname;
-        int size,val;
-        Person** arr = getDataFromFile(fname,size, val);
-        Selection selection(size,arr,val);
-        selection.selectHeap();     //selectHeap
-		selection.BST();            //BST
-        selection.RandSelection();  //RandSelection1
-        selection.RandSelection();  //RandSelection2
-        selection.RandSelection();  //RandSelection3
-        selection.RandSelection();  //RandSelection4
-        FreeArray(arr,size);
-        cout << "- - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
-    }
+    srand(time(nullptr));
+    int size;
+    int val;
+    cin >> size;
+    cin.ignore();
 
+    Person** arr = getData(size, val);
+    Selection selection(size,arr,val);
+    selection.selectHeap();     //selectHeap
+    selection.RandSelection();  //RandSelection
+    selection.BST();            //BST
+    FreeArray(arr,size);
 }
 
-Person** getDataFromFile(string fname,int& size,int& val)
+Person** getData(int& size, int& val)
 {
-    ifstream inFile(fname);
-    inFile >> size;
+    string name;
+    string id;
     Person** PArray = new Person*[size];
     for (int i = 0; i < size; i++)
     {
-        PArray[i] = new Person(inFile);
+        cin >> id;
+        cin.ignore();
+        getline(cin,name);
+        try {
+            Person* person = new Person(id,name);
+            if(i != 0)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if(PArray[j]->ID() == stol(id))
+                    {
+                        string ex = "bad";
+                        throw ex;
+                    }
+                }
+            }
+            PArray[i] = person;
+        }
+        catch(string ex) {
+            cout << "invalid input" << endl;
+            FreeArray(PArray,i);
+            exit(1);
+        }
     }
-    inFile >> val;
-    inFile.close();
+    cin >> val;
     return PArray;
 }
 
